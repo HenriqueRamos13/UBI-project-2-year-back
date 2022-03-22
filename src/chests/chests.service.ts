@@ -21,7 +21,6 @@ const DIFFICULTY = {
     maxValues: [255, 255, 255, 255, 15],
   },
 };
-
 const dificulty = Difficulty.Legendary;
 
 @Injectable()
