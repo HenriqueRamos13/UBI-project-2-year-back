@@ -18,7 +18,7 @@ const DIFFICULTY = {
     maxValues: [255, 255, 255, 255, 15],
   },
   easy: {
-    maxValues: [255, 255, 255, 255, 15],
+    maxValues: [255, 255, 255, 64, 0],
   },
 };
 const dificulty = Difficulty.Legendary;
@@ -41,11 +41,11 @@ export class ChestsService {
 
     Object.keys(chests).forEach((dif) => {
       const keyGenerated = [
-        // Math.round(Math.random() * DIFFICULTY[dif].maxValues[0]),
-        // Math.round(Math.random() * DIFFICULTY[dif].maxValues[1]),
-        // Math.round(Math.random() * DIFFICULTY[dif].maxValues[2]),
-        // Math.round(Math.random() * DIFFICULTY[dif].maxValues[3]),
-        255, 255, 255, 255, 15,
+        Math.round(Math.random() * DIFFICULTY[dif].maxValues[0]),
+        Math.round(Math.random() * DIFFICULTY[dif].maxValues[1]),
+        Math.round(Math.random() * DIFFICULTY[dif].maxValues[2]),
+        Math.round(Math.random() * DIFFICULTY[dif].maxValues[3]),
+        // 255, 255, 255, 255, 15,
       ];
 
       const key = Buffer.from([
