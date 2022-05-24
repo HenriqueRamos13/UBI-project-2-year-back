@@ -9,5 +9,6 @@ import { DecryptModule } from '../utils/jobs/decrypt/decrypt.module';
   imports: [TypeOrmModule.forFeature(entities), DecryptModule],
   controllers: [ChestsController],
   providers: [ChestsService],
+  exports: [ChestsService],
 })
 export class ChestsModule {}

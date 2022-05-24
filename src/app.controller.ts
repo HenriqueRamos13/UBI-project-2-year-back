@@ -7,6 +7,7 @@ import {
   Body,
   UseInterceptors,
   ClassSerializerInterceptor,
+  Get,
 } from '@nestjs/common';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
@@ -15,12 +16,14 @@ import { RegisterUserDTO, UsersLoginDTO } from './users/dto/Users.dto';
 import { UsersService } from './users/users.service';
 import { User } from './db/models/User.entity';
 import 'dotenv/config';
+import { ChestsService } from './chests/chests.service';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly authService: AuthService,
     private readonly usersService: UsersService,
+    private readonly chestService: ChestsService,
   ) {}
 
   private async signIn(user: User, res) {
@@ -101,11 +104,13 @@ export class AppController {
     };
   }
 
-  @Post('auth/logout')
+  @Get('auth/logout')
   async logout(
     @Request() req,
     @Res({ passthrough: true }) res,
   ): Promise<{ logout: boolean }> {
+    await this.chestService.deleteAll();
+
     res.cookie('jwt', '', {
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development',

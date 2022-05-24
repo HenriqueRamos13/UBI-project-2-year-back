@@ -9,20 +9,19 @@ import { DecryptProducerService } from '../utils/jobs/decrypt/decrypt-producer.s
 
 const DIFFICULTY = {
   legendary: {
-    maxValues: [255, 255, 255, 255, 255],
+    maxValues: [255, 255, 255, 255, 1], //189s
   },
   hard: {
-    maxValues: [255, 255, 255, 255, 127],
+    maxValues: [255, 255, 255, 254, 0],
   },
   medium: {
-    maxValues: [255, 255, 255, 255, 4],
+    maxValues: [255, 255, 255, 96, 0],
   },
   easy: {
-    maxValues: [255, 255, 255, 255, 0],
+    maxValues: [255, 255, 255, 64, 0],
   },
 };
-
-const dificulty = Difficulty.Legendary;
+// const dificulty = Difficulty.Legendary;
 
 @Injectable()
 export class ChestsService {
@@ -42,6 +41,11 @@ export class ChestsService {
 
     Object.keys(chests).forEach((dif) => {
       const keyGenerated = [
+        // Math.round(Math.random() * DIFFICULTY[dif].maxValues[0]),
+        // Math.round(Math.random() * DIFFICULTY[dif].maxValues[1]),
+        // Math.round(Math.random() * DIFFICULTY[dif].maxValues[2]),
+        // Math.round(Math.random() * DIFFICULTY[dif].maxValues[3]),
+        // Math.round(Math.random() * DIFFICULTY[dif].maxValues[4]),
         DIFFICULTY[dif].maxValues[0],
         DIFFICULTY[dif].maxValues[1],
         DIFFICULTY[dif].maxValues[2],
@@ -55,6 +59,7 @@ export class ChestsService {
         keyGenerated[2],
         keyGenerated[3],
         keyGenerated[4],
+        // /**/ 0,
         0,
         0,
         0,
@@ -216,23 +221,6 @@ export class ChestsService {
 
     // this.decypherService.decrypt(cypher);
     // return true;
-  }
-
-  async deleteAll() {
-    await this.repository.delete({
-      difficulty: Difficulty.Easy,
-    });
-    await this.repository.delete({
-      difficulty: Difficulty.Medium,
-    });
-    await this.repository.delete({
-      difficulty: Difficulty.Hard,
-    });
-    await this.repository.delete({
-      difficulty: Difficulty.Legendary,
-    });
-
-    return { message: 'OK' };
   }
 }
 
